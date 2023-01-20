@@ -1,0 +1,107 @@
+<!DOCTYPE>
+<html>
+
+<head>
+  <title>CSS3 Perspective Playground</title>
+  <link rel="stylesheet" type="text/css" href="main.css" />
+</head>
+
+<body>
+  <div id="app">
+    <h2>CSS3 Perspective Playground</h2>
+    <main>
+      <section class="settings">
+        <div class="settings-container">
+          <label>perspective: {{perspective}}px;</label>
+          <input type="range" min="0" max="999" v-model="perspective" />
+
+          <label>rotateX: {{rotateX}}deg; </label>
+          <input type="range" min="-180" max="180" v-model="rotateX" />
+
+          <label>rotateY: {{rotateY}}deg; </label>
+          <input type="range" min="-180" max="180" v-model="rotateY" />
+
+          <label>rotateZ: {{rotateZ}}deg; </label>
+          <input type="range" min="-180" max="180" v-model="rotateZ" />
+
+          <button type="button" @click.prevent="reset">Reset</button>
+          <button type="button" @click.prevent="copy">Copy</button>
+        </div>
+      </section>
+      <section class="output">
+        <div class="circle-container">
+          <div class="circle" :style="circle"></div>
+        </div>
+      </section>
+    </main>
+
+  </div>
+
+  <css-doodle>
+    :doodle {
+      @grid: 12 / 100%;
+    position: absolute;
+    top: 0; left: 0;
+    z-index: 0;
+    height:100vh;
+    opacity:.5;
+    }
+
+    @random {
+      border: 3px solid hsla(158, 70%, 68%, @rand(0.3));
+    }
+    
+    @random {
+       filter: blur(1.5px);
+    }
+    
+    @random {
+      animation: move 5s linear alternate infinite;
+    }
+    
+    @random(0.1) {
+      animation: flicker 5s ease infinite;
+    }
+    
+    @keyframes move {		
+      0% {
+        transform:	translate(
+        @rand(-50%, 50%), @rand(-50%, 50%)
+        );
+      }
+    
+      100% {
+        transform:	translate(
+        @rand(-50%, 50%), @rand(-50%, 50%)
+        );
+      }
+    }
+    
+    @keyframes flicker {
+      0% {
+        opacity: 1;
+      }
+    
+      50% {
+        opacity: 0;
+      }
+    
+      100% {
+        opacity: 1;
+      }
+    }
+    
+    border-radius: 50%;
+    background: hsla(158, 70%, 68%, @rand(0.6));
+    transform: scale(@rand(.5, 1.2))
+    translate(
+    @rand(-50%, 50%), @rand(-50%, 50%)
+    );
+  </css-doodle>
+
+  <script src="https://unpkg.com/css-doodle@0.6.1/css-doodle.min.js"></script>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
